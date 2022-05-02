@@ -25,8 +25,8 @@ if __name__ == "__main__":
     # o-other columns
     parse.add_argument("-header", help="If file type is txt, specify the header meanings", type=str)
 
-    # Estimator type: VoxRtIntensity, VoxColumnNumber, AlphaRtIntensity
-    parse.add_argument("-estimator", required=True, help="PAD estimator", type=str, default="VoxColumnNumber")
+    # Estimator type: VoxByRtIntensity, VoxByColumnNumber, AlphaByRtIntensity
+    parse.add_argument("-estimator", required=True, help="PAD estimator", type=str, default="VoxByColumnNumber")
 
     # 是否执行CSF滤波，最终结果中1代表非地面点，2代表地面点
     # whether csf ground filtering is applied, if you specify -csf, then original point cloud will be filtered,
@@ -86,13 +86,16 @@ if __name__ == "__main__":
     # #######################处理输入参数结束#######################################
     # #######################好了，数据已经准备好了，开始反演#########################
     pad_estimator = None
-    print(" - Using PAD Estimator: ", args.estimator)
-    if args.estimator == "VoxRtIntensity":
+    print(" - Using PAD Estimator:", args.estimator)
+    if args.estimator == "VoxByRtIntensity":
         from VoxelPADEstimatorByRaytracing import VoxelPADEstimatorByRaytracing
         pad_estimator = VoxelPADEstimatorByRaytracing(filtered_output_files, fileType, resolution, txtHeader)
-    elif args.estimator == "VoxColumnNumber":
+    elif args.estimator == "VoxByColumnNumber":
         from VoxelPADEstimatorByColumnPoint import VoxelPADEstimatorByColumnPoint
         pad_estimator = VoxelPADEstimatorByColumnPoint(filtered_output_files, fileType, resolution, txtHeader)
+    elif args.estimator == "AlphaByRtIntensity":
+        from AlphashapePADEstimatorByRaytracing import AlphashapePADEstimatorByRaytracing
+        pad_estimator = AlphashapePADEstimatorByRaytracing(filtered_output_files, fileType, resolution, txtHeader)
     pad_estimator.pad_inversion(args.para)
     pad_estimator.save_pad(output_pad_file_path)
     # #######################反演结束#############################
