@@ -1,2 +1,5 @@
 # LAI3D
-Inversion of 3D leaf area index from airborne LiDAR data
+3D leaf area density or plant area density inversion from LiDAR point cloud.
+Currently, voxel-based approach is supported.
+
+# Usage
