@@ -25,7 +25,7 @@ if __name__ == "__main__":
     # o-other columns
     parse.add_argument("-header", help="If file type is txt, specify the header meanings", type=str)
 
-    # Estimator type: VoxByRtIntensity, VoxByColumnNumber, AlphaByRtIntensity
+    # Estimator type: VoxByRtIntensity, VoxByColumnNumber
     parse.add_argument("-estimator", required=True, help="PAD estimator", type=str, default="VoxByColumnNumber")
 
     # 是否执行CSF滤波，最终结果中1代表非地面点，2代表地面点
@@ -93,9 +93,6 @@ if __name__ == "__main__":
     elif args.estimator == "VoxByColumnNumber":
         from VoxelPADEstimatorByColumnPoint import VoxelPADEstimatorByColumnPoint
         pad_estimator = VoxelPADEstimatorByColumnPoint(filtered_output_files, fileType, resolution, txtHeader)
-    elif args.estimator == "AlphaByRtIntensity":
-        from AlphashapePADEstimatorByRaytracing import AlphashapePADEstimatorByRaytracing
-        pad_estimator = AlphashapePADEstimatorByRaytracing(filtered_output_files, fileType, resolution, txtHeader)
     pad_estimator.pad_inversion(args.para)
     pad_estimator.save_pad(output_pad_file_path)
     # #######################反演结束#############################

@@ -6,7 +6,7 @@ import numpy as np
 import math
 
 
-class PADEstimatorBase:
+class VoxelPADEstimatorBase:
     def __init__(self, filtered_input_files, file_type, resolution, txt_header=None):
         '''
         构造函数

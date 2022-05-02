@@ -8,10 +8,10 @@ from Pulse import *
 from Utils import *
 from sklearn.neighbors import NearestNeighbors
 from multiprocessing import Process, Pool
-from PADEstimatorBase import PADEstimatorBase
+from VoxelPADEstimatorBase import VoxelPADEstimatorBase
 
 
-class VoxelPADEstimatorByRaytracing(PADEstimatorBase):
+class VoxelPADEstimatorByRaytracing(VoxelPADEstimatorBase):
     def __init__(self, filtered_input_files, file_type, resolution, txt_header=None):
         super().__init__(filtered_input_files, file_type, resolution, txt_header)
 

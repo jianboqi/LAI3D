@@ -2,7 +2,7 @@
 import os
 from Pulse import *
 from Utils import *
-from PADEstimatorBase import PADEstimatorBase
+from VoxelPADEstimatorBase import VoxelPADEstimatorBase
 from collections import Counter
 
 
@@ -14,7 +14,7 @@ def weighted_num_return(point_arr):
     return num
 
 
-class VoxelPADEstimatorByColumnPoint(PADEstimatorBase):
+class VoxelPADEstimatorByColumnPoint(VoxelPADEstimatorBase):
     """
     This estimator estimates PAD with discrete point cloud, i.e., does not using intensity information
     """
