@@ -5,17 +5,19 @@ import os
 from Pulse import *
 from Utils import *
 from sklearn.neighbors import NearestNeighbors
+import matlab.engine
 
 
 class AlphashapePADEstimatorByRaytracing(AlphaPADEstimatorBase):
     def __init__(self, filtered_input_files, file_type, txt_header=None):
         super().__init__(filtered_input_files, file_type, txt_header)
         self.RAY_O_Z = 1000
+        self.eng = matlab.engine.start_matlab()
 
     def pad_inversion(self, parallel_computing=False):
         # First, read all data from all paths
-        all_points = self.read_merged_points()
-        self.alpha_shape_seg(all_points)
+        # all_points = self.read_merged_points()
+        # self.alpha_shape_seg(all_points)
 
         if parallel_computing:
             print(" - ****************Start to process******************")
@@ -28,12 +30,8 @@ class AlphashapePADEstimatorByRaytracing(AlphaPADEstimatorBase):
                 self.lai_inversion_per_flight_path(input_file)
 
     def alpha_shape_seg(self, all_points):
-        # perform the tree segmentation to calculate alpha shapes
-        # todo: not finished
-        # this invoke R package
+        # seg using matlab
         pass
-
-
 
     def lai_inversion_per_flight_path(self, flight_path_file):
         self.all_pulses = parse_pulses_from_discrete_point_cloud_ext(flight_path_file, self.file_type, self.txt_header)
