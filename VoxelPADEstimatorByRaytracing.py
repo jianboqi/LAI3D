@@ -193,7 +193,7 @@ class VoxelPADEstimatorByRaytracing(VoxelPADEstimatorBase):
             if pulse.pulse_type == PulseType.PURE_GROUND:
                 pure_ground_points_array += pulse.point_list
                 pure_ground_intensity_array += pulse.intensity_list
-        pure_ground_points_array = np.array(pure_ground_points_array) - np.array([self.bb.min_x, self.bb.min_y, self.bb.min_z])
+        pure_ground_points_array = np.array(pure_ground_points_array)  # - np.array([self.bb.min_x, self.bb.min_y, self.bb.min_z])
         # using x y of pure ground point to build a nearest search tree
         nbrs = NearestNeighbors(n_neighbors=1, algorithm='ball_tree').fit(pure_ground_points_array[:, 0:2])
 

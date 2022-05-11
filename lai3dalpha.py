@@ -15,6 +15,7 @@ if __name__ == "__main__":
     parse.add_argument("-i", nargs='*', help="Input file.", required=True)
     parse.add_argument("-alpha", help="Alpha value.", type=float, default=1)
     parse.add_argument("-f", required=True, type=str, default="las", help="文件类型，可以是txt，las格式")
+    parse.add_argument("-shape_path", required=True, type=str, help="The path to the xml file storing shapes")
 
     # 如果文件类型是txt格式（第一行为文件头，必须，如果实在没有，就随便写点啥吧，比如“你好啊”，反正也不重要），
     # 请提供每一列的具体含义，x-代表x坐标，y-代表y坐标，z-代表z坐标，c-分类，i-强度，t-GPS时间，r-回波序号
@@ -89,7 +90,7 @@ if __name__ == "__main__":
     print(" - Using PAD Estimator:", args.estimator)
     if args.estimator == "AlphaByRtIntensity":
         from AlphashapePADEstimatorByRaytracing import AlphashapePADEstimatorByRaytracing
-        pad_estimator = AlphashapePADEstimatorByRaytracing(filtered_output_files, fileType, txtHeader)
+        pad_estimator = AlphashapePADEstimatorByRaytracing(filtered_output_files, fileType, args.shape_path, txtHeader)
     # elif args.estimator == "AlphaByColumnNumber":
     #     from VoxelPADEstimatorByColumnPoint import VoxelPADEstimatorByColumnPoint
     #     pad_estimator = VoxelPADEstimatorByColumnPoint(filtered_output_files, fileType, txtHeader)
